@@ -4,8 +4,10 @@ import datetime
 
 from gnact import utils, clust, network
 import db_config
-import warnings
-warnings.filterwarnings('ignore')
+
+
+#%%
+
 
 # create the engine to the database
 engine = utils.connect_engine(db_config.colone_cargo_params, print_verbose=True)

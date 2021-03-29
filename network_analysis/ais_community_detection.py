@@ -15,7 +15,7 @@ from cdlib import evaluation
 # metrics
 from sklearn import metrics
 #%%
-df_edgelist = pd.read_csv('ais/full_edgelist_for_ais.csv')
+df_edgelist = pd.read_csv('full_edgelist.csv')
 df_edgelist['Target_id'] = df_edgelist['Target_id'].astype('int')
 df_edgelist['uid'] = df_edgelist['mmsi']
 df_edgelist.drop(['Unnamed: 0', 'mmsi'], inplace=True, axis=1)

@@ -1,0 +1,31 @@
+from sklearn.neighbors import NearestNeighbors as skNN
+import pandas as pd
+import numpy as np
+from datetime import datetime
+from multiprocessing import Pool, set_start_method
+
+numb_rows = 1000000
+workers = 8
+chunk_size = 250000
+
+# load the sites.  these are the canidatates for the nearest neighbor.
+df_sites = pd.read_csv('data/sites.csv', usecols=['site_id', 'latitude', 'longitude'])
+
+# create sk knn
+knn_sk = skNN(algorithm='ball_tree', n_jobs=workers)
+canidates = np.radians(df_sites.loc[:, ['latitude', 'longitude']].values)
+knn_sk.fit(canidates)
+
+tick = datetime.now()
+for chunk in pd.read_csv('data/uid_positions.csv',
+                        nrows=numb_rows,
+                        chunksize=chunk_size,
+                        usecols=['id','uid','time','lat','lon'],
+                        index_col='id'):
+
+    points_of_int = np.radians(chunk.loc[:,['lat','lon']].values)
+    D_sk, I_sk = knn_sk.kneighbors(points_of_int, 1)
+
+print('sk_knn completed')
+elapsed = datetime.now() - tick
+print(f'{elapsed} time elapsed')

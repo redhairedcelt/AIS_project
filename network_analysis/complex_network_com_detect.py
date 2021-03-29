@@ -6,7 +6,6 @@ warnings.filterwarnings('ignore')
 # network tools
 import networkx as nx
 import igraph as ig
-import cdlib
 from cdlib import algorithms
 from cdlib import viz
 from cdlib import NodeClustering
@@ -16,21 +15,21 @@ from cdlib import evaluation
 from sklearn import metrics
 
 #%% load ground truth community data and the network data
-graph_name = "Euro University Emails"
-df_truth = pd.read_csv('email/email-Eu-core-department-labels.txt', sep=' ', header=None, dtype=str)
-df_truth.columns = ['node', 'truth']
-
-df_edges = pd.read_csv('email/email-Eu-core.txt', sep=' ', header=None, dtype=str)
-df_edges.columns = ['Source', 'Target']
+# graph_name = "Euro University Emails"
+# df_truth = pd.read_csv('email/email-Eu-core-department-labels.txt', sep=' ', header=None, dtype=str)
+# df_truth.columns = ['node', 'truth']
+#
+# df_edges = pd.read_csv('email/email-Eu-core.txt', sep=' ', header=None, dtype=str)
+# df_edges.columns = ['Source', 'Target']
 
 
 #%% define graph name, graph, and ground truth communities
 graph_name = 'AIS Data'
-df_truth = pd.read_csv('ais/sites_with_regions.csv')
+df_truth = pd.read_csv('sites_with_regions.csv')
 df_truth = df_truth[['port_id', 'region']]
 df_truth.columns = ['node_id', 'truth']
 
-df_edges = pd.read_csv('ais/ais_edgelist_for_cd.csv')
+df_edges = pd.read_csv('ais_edgelist_for_cd.csv')
 
 
 
